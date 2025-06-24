@@ -244,8 +244,6 @@ class System(object):
         # Check that the server support API version 4.0 or 8.0.
         rest_versions = self.__api.get_version_info()['rest_versions']
 
-        # Check that the server supports API version 4.0 or higher.
-    rest_versions = self.__api.get_version_info()['rest_versions']
     
     if '13.0' in rest_versions:
         _LOGGER.info('Visonics Rest API version 13.0 is supported.')
