@@ -240,6 +240,8 @@ class System(object):
 
     def connect(self):
     """ Connect to the alarm system and get the static system info. """
+        
+     _LOGGER.warning("USING PATCHED visonicalarm library, API v14 enabled")
 
     rest_versions = self.__api.get_version_info()['rest_versions']
 
