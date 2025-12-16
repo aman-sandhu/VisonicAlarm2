@@ -240,32 +240,19 @@ class System(object):
 
     def connect(self):
     """ Connect to the alarm system and get the static system info. """
-        
-     _LOGGER.warning("USING PATCHED visonicalarm library, API v14 enabled")
 
-    rest_versions = self.__api.get_version_info()['rest_versions']
+    _LOGGER.warning("USING PATCHED visonicalarm library, API v14 enabled")
 
-    if '8.0' in rest_versions:
-        _LOGGER.info('Visonics Rest API version 8.0 is supported.')
-        self.__api.setVersionUrls('8.0')
-    elif '9.0' in rest_versions:
-        _LOGGER.info('Visonics Rest API version 9.0 is supported.')
-        self.__api.setVersionUrls('9.0')
-    elif '10.0' in rest_versions:
-        _LOGGER.info('Visonics Rest API version 10.0 is supported.')
-    elif '12.0' in rest_versions:
-        _LOGGER.info('Visonics Rest API version 12.0 is supported.')
-        self.__api.setVersionUrls('12.0')
-    elif '13.0' in rest_versions:
-        _LOGGER.info('Visonics Rest API version 13.0 is supported.')
-        self.__api.setVersionUrls('13.0')
-    elif '14.0' in rest_versions:  # <<< NEW PATCH
-        _LOGGER.info('Visonics Rest API version 14.0 is supported.')
+    rest_versions = self.__api.get_version_info().get('rest_versions', [])
+
+    if '14.0' in rest_versions:
+        _LOGGER.info('Visonics Rest API version 14.0 detected, using it.')
         self.__api.setVersionUrls('14.0')
     else:
         raise Exception(
-            f'Visonics Rest API versions 8.0, 9.0, 10.0, 12.0 or 13.0 are not supported by server. Supported versions: {", ".join(rest_versions)}'
+            f'Visonics Rest API version 14.0 is required but not supported by server. Supported versions: {", ".join(rest_versions)}'
         )
+
 
 
 
